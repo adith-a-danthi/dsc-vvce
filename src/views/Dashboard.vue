@@ -160,6 +160,10 @@
               :user-projects="currentUser.projects"
               @updateSkills="getCurrentUserDetails"
           ></projects>
+          <work-experience
+              :experience="currentUser.experience"
+              @updateSkills="getCurrentUserDetails"
+          ></work-experience>
         </v-col>
       </v-row>
     </v-container>
@@ -171,10 +175,12 @@
 import firebase from "../utils/firebase";
 import skills from "../components/Skills"
 import Projects from "../components/Projects";
+import WorkExperience from "../components/WorkExperience";
 
 export default {
   name: "Dashboard",
   components: {
+    WorkExperience,
     Projects,
     skills
   },
@@ -185,7 +191,12 @@ export default {
     return {
       currentUser: {
         skills: [],
-        projects: []
+        projects: [],
+        experience: [],
+        github: '',
+        linkedin: '',
+        website: '',
+        bio: '',
       },
       displayComponent: 'Profile',
       links: [
