@@ -49,7 +49,7 @@
           ></v-text-field>
           <v-text-field
               v-model="form.confirmPassword"
-              :type="showPass ? 'text' : 'password'"
+              :type="showConfirmPass ? 'text' : 'password'"
               label="Confirm Password"
               :append-icon="showConfirmPass ? 'mdi-eye' : 'mdi-eye-off'"
               @click:append="showConfirmPass = !showConfirmPass"

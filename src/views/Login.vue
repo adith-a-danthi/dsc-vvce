@@ -81,7 +81,7 @@ export default {
   data() {
     const defaultForm = Object.freeze({
       email: '',
-      pass: ''
+      password: ''
     });
     return {
       form: Object.assign({}, defaultForm),
@@ -96,7 +96,7 @@ export default {
 
   methods: {
     login: function () {
-      firebase.auth.signInWithEmailAndPassword(this.form.email, this.form.pass)
+      firebase.auth.signInWithEmailAndPassword(this.form.email, this.form.password)
           .then((user) => {
             console.log(user);
             this.$router.push({name: 'Dashboard'});
