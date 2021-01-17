@@ -121,7 +121,7 @@ export default {
       if (this.form.password === this.form.confirmPassword && this.form.password.length > 0) {
         firebase.auth.createUserWithEmailAndPassword(this.form.email, this.form.password)
             .then((user) => {
-              firebase.usersCollection.doc(user.uid).set({
+              firebase.usersCollection.doc(user.user.uid).set({
                 name: this.form.name,
                 email: this.form.email,
                 userId: firebase.auth.currentUser.uid,

@@ -71,9 +71,58 @@
 
     <v-container>
       <v-row>
-        <v-col cols="3" md="2">
+        <v-col cols="4" md="2">
+          <v-sheet
+              class="mb-2"
+              rounded="lg"
+          >
+            <v-col class="align-center text-center">
+
+              <v-avatar color="grey">
+                <v-icon dark>
+                  mdi-account-circle
+                </v-icon>
+              </v-avatar>
+
+              <h3 id="name" class="text-capitalize mt-2">{{ currentUser.name }}</h3>
+              <p id="email" class="text-sm-subtitle-2">{{ currentUser.email }}</p>
+
+              <v-row class="my-1 justify-center">
+                <v-btn
+                    color="black"
+                    icon
+                    elevation="0"
+                    target="_blank"
+                >
+                  <v-icon>mdi-github</v-icon>
+                </v-btn>
+                <v-btn
+                    color="primary"
+                    icon
+                    elevation="0"
+                    target="_blank"
+                >
+                  <v-icon>mdi-linkedin</v-icon>
+                </v-btn>
+                <v-btn
+                    color="grey darken-2"
+                    icon
+                    elevation="0"
+                    target="_blank"
+                >
+                  <v-icon>mdi-web</v-icon>
+                </v-btn>
+              </v-row>
+
+            </v-col>
+          </v-sheet>
           <v-sheet rounded="lg">
             <v-list color="transparent">
+              <v-list-item link>
+                <v-list-item-title>
+                  Profile
+                </v-list-item-title>
+              </v-list-item>
               <v-list-item
                   v-for="n in 5"
                   :key="n"
@@ -103,12 +152,10 @@
         </v-col>
 
         <v-col>
-          <v-sheet
-              min-height="70vh"
-              rounded="lg"
-          >
-            <!--  -->
-          </v-sheet>
+          <skills
+              :skills="currentUser.skills"
+              @updateSkills="getCurrentUserDetails"
+          ></skills>
         </v-col>
       </v-row>
     </v-container>
@@ -118,17 +165,30 @@
 
 <script>
 import firebase from "../utils/firebase";
+import skills from "../components/Skills"
 
 export default {
   name: "Dashboard",
-  data: () => ({
-    links: [
-      'Home',
-      'About',
-      'Chapters',
-      'Events',
-    ]
-  }),
+  components: {
+    skills
+  },
+  mounted() {
+    this.getCurrentUserDetails();
+  },
+  data() {
+    return {
+      currentUser: {
+        skills: []
+      },
+      displayComponent: 'Profile',
+      links: [
+        'Home',
+        'About',
+        'Chapters',
+        'Events',
+      ]
+    }
+  },
   methods: {
     logout: function () {
       firebase.auth.signOut()
@@ -137,6 +197,16 @@ export default {
           })
           .catch(err => {
             console.log(err);
+          })
+    },
+    getCurrentUserDetails: function () {
+      // let temp = {};
+      firebase.usersCollection.doc(firebase.auth.currentUser.uid).get()
+          .then(user => {
+            this.currentUser = user.data();
+          })
+          .catch(err => {
+            console.log(err)
           })
     }
   }
