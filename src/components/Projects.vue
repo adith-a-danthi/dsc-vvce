@@ -30,12 +30,13 @@
                     <template v-slot:activator="{ on, attrs }">
                       <v-btn
                           icon
+                          small
                           elevation="0"
                           v-bind="attrs"
                           v-on="on"
                           @click="setProject(project, idx)"
                       >
-                        <v-icon>mdi-pencil</v-icon>
+                        <v-icon small>mdi-pencil</v-icon>
                       </v-btn>
                     </template>
 
@@ -124,7 +125,7 @@
                   v-bind="attrs"
                   v-on="on"
               >
-                Add Project
+                + Add New
               </v-btn>
             </template>
 

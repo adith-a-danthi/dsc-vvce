@@ -69,7 +69,7 @@
                   <br>
                   <v-row>
                     <v-chip
-                        class="mx-1 text-capitalize"
+                        class="mx-1 text-uppercase"
                         v-for="(skill,idx) in skills"
                         v-bind:key="skill"
                         close
@@ -84,7 +84,7 @@
                 <v-spacer></v-spacer>
                 <v-btn
                     color="green"
-                    class="text-capitalize"
+                    class="text-uppercase"
                     style="color: white"
                     @click="saveSkills"
                 >
@@ -99,7 +99,7 @@
       <v-card-text>
         <v-row class="mx-1">
           <v-chip
-              class="mx-1"
+              class="mx-1 text-uppercase"
               v-for="skill in skills"
               v-bind:key="skill"
           >

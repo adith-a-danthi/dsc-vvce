@@ -85,69 +85,146 @@
               </v-avatar>
 
               <h3 id="name" class="text-capitalize mt-2">{{ currentUser.name }}</h3>
-              <p id="email" class="text-sm-subtitle-2">{{ currentUser.email }}</p>
-
+              <p id="email" class="text-sm-subtitle-2 mb-0">{{ currentUser.email }}</p>
+              <p class="text-sm-subtitle-2 mb-1">{{ currentUser.tagline }}</p>
               <v-row class="my-1 justify-center">
                 <v-btn
+                    v-if="currentUser.github !== ''"
                     color="black"
                     icon
                     elevation="0"
                     target="_blank"
+                    :href="currentUser.github"
                 >
                   <v-icon>mdi-github</v-icon>
                 </v-btn>
                 <v-btn
+                    v-if="currentUser.linkedin !== ''"
                     color="primary"
                     icon
                     elevation="0"
                     target="_blank"
+                    :href="currentUser.linkedin"
                 >
                   <v-icon>mdi-linkedin</v-icon>
                 </v-btn>
                 <v-btn
+                    v-if="currentUser.website !== ''"
                     color="grey darken-2"
                     icon
                     elevation="0"
                     target="_blank"
+                    :href="currentUser.website"
                 >
                   <v-icon>mdi-web</v-icon>
                 </v-btn>
               </v-row>
+              <v-divider class="mb-2"></v-divider>
+
+              <p
+                  class="text-subtitle-2 text-left pb-0 mb-0"
+                  style="color: grey"
+              >
+                Bio:
+              </p>
+              <p class="text-lg-subtitle-2 text-left">
+                {{ currentUser.bio }}
+              </p>
+
+              <v-divider class="mb-2"></v-divider>
+
+              <v-dialog
+                  v-model="editIntroModal"
+                  width="30vw"
+              >
+                <template v-slot:activator="{on,attr}">
+                  <v-btn
+                      class="text-capitalize"
+                      color="primary"
+                      small
+                      text
+                      v-on="on"
+                      v-bind="attr"
+                      @click="setEditUser"
+                  >
+                    <v-icon left small>
+                      mdi-pencil
+                    </v-icon>
+                    Edit
+                  </v-btn>
+                </template>
+
+                <v-card>
+                  <v-card-title>
+                    Edit Intro
+                  </v-card-title>
+                  <v-card-text>
+                    <v-text-field
+                        v-model="editUser.name"
+                        label="Name"
+                        :rules="rules"
+                        outlined
+                        required
+                        dense
+                    ></v-text-field>
+                    <v-text-field
+                        v-model="editUser.tagline"
+                        label="Tagline"
+                        outlined
+                        dense
+                    ></v-text-field>
+                    <v-text-field
+                        v-model="editUser.website"
+                        label="Website"
+                        outlined
+                        dense
+                    ></v-text-field>
+                    <v-text-field
+                        v-model="editUser.github"
+                        label="GitHub URL"
+                        outlined
+                        dense
+                    ></v-text-field>
+                    <v-text-field
+                        v-model="editUser.linkedin"
+                        label="LinkedIn URL"
+                        outlined
+                        dense
+                    ></v-text-field>
+                    <v-textarea
+                        v-model="editUser.bio"
+                        label="Bio"
+                        outlined
+                        dense
+                    ></v-textarea>
+                  </v-card-text>
+                  <v-card-actions class="pa-4">
+                    <v-spacer></v-spacer>
+                    <v-btn
+                        color="green"
+                        class="text-capitalize"
+                        elevation="0"
+                        @click="editIntroModal = false"
+                        text
+                    >
+                      Cancel
+                    </v-btn>
+                    <v-btn
+                        color="green"
+                        class="text-capitalize"
+                        style="color: white"
+                        elevation="0"
+                        @click="updateUserDetails"
+                    >
+                      Save
+                    </v-btn>
+                  </v-card-actions>
+                </v-card>
+
+              </v-dialog>
+
 
             </v-col>
-          </v-sheet>
-          <v-sheet rounded="lg">
-            <v-list color="transparent">
-              <v-list-item link>
-                <v-list-item-title>
-                  Profile
-                </v-list-item-title>
-              </v-list-item>
-              <v-list-item
-                  v-for="n in 5"
-                  :key="n"
-                  link
-              >
-                <v-list-item-content>
-                  <v-list-item-title>
-                    List Item {{ n }}
-                  </v-list-item-title>
-                </v-list-item-content>
-              </v-list-item>
-
-              <v-divider class="my-2"></v-divider>
-
-              <v-list-item
-                  link
-                  color="grey lighten-4"
-              >
-                <v-list-item-content>
-                  <v-list-item-title>
-                    Refresh
-                  </v-list-item-title>
-                </v-list-item-content>
-              </v-list-item>
-            </v-list>
           </v-sheet>
         </v-col>
 
@@ -190,6 +267,8 @@ export default {
   data() {
     return {
       currentUser: {
+        name: '',
+        email: '',
         skills: [],
         projects: [],
         experience: [],
@@ -197,6 +276,15 @@ export default {
         linkedin: '',
         website: '',
         bio: '',
+        tagline: '',
+      },
+      editUser: {
+        name: '',
+        github: '',
+        linkedin: '',
+        website: '',
+        bio: '',
+        tagline: '',
       },
       displayComponent: 'Profile',
       links: [
@@ -204,7 +292,9 @@ export default {
         'About',
         'Chapters',
         'Events',
-      ]
+      ],
+      editIntroModal: false,
+      rules: [v => v.length > 0 || 'This field is required']
     }
   },
   methods: {
@@ -226,6 +316,36 @@ export default {
           .catch(err => {
             console.log(err)
           })
+    },
+    setEditUser: function () {
+      this.editUser = {
+        name: this.currentUser.name,
+        github: this.currentUser.github,
+        linkedin: this.currentUser.linkedin,
+        website: this.currentUser.website,
+        bio: this.currentUser.bio,
+        tagline: this.currentUser.tagline,
+      }
+    },
+    updateUserDetails: function () {
+      if (this.editUser.name.length > 0) {
+        this.editIntroModal = false;
+        firebase.usersCollection.doc(firebase.auth.currentUser.uid).update({
+          name: this.editUser.name,
+          github: this.editUser.github,
+          linkedin: this.editUser.linkedin,
+          website: this.editUser.website,
+          bio: this.editUser.bio,
+          tagline: this.editUser.tagline,
+        })
+            .then(() => {
+              this.getCurrentUserDetails();
+            })
+            .catch(err => {
+              console.log(err);
+              alert('Error Updating Data');
+            })
+      }
     }
   }
 }

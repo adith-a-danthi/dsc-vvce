@@ -160,7 +160,7 @@
                   v-bind="attrs"
                   v-on="on"
               >
-                Add New
+                + Add New
               </v-btn>
             </template>
 
