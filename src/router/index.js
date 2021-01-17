@@ -1,9 +1,11 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+import firebase from '@/utils/firebase';
+
 import Home from '../views/Home.vue'
 import Login from "../views/Login";
 import Dashboard from "../views/Dashboard";
-import firebase from '@/utils/firebase';
+import Signup from "../views/Signup";
 
 Vue.use(VueRouter)
 
@@ -29,6 +31,11 @@ const routes = [
     path: '/login',
     name: 'Login',
     component: Login
+  },
+  {
+    path: '/register',
+    name: 'Signup',
+    component: Signup
   },
   {
     path: '/dashboard',
