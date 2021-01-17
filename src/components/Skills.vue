@@ -51,7 +51,7 @@
                   <br>
                   <v-row>
                     <v-chip
-                        class="mx-1 text-capitalize"
+                        class="mx-1 text-uppercase"
                         v-for="(skill,idx) in newSkills"
                         v-bind:key="skill"
                         close

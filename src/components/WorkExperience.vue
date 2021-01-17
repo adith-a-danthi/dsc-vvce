@@ -19,8 +19,8 @@
             <li class="text-h6">
               {{ exp.role }}
               <p class="text-body-1 ml-8">
-                {{ exp.company }} | <span class="text-body-1" style="color: grey">Month Year - {{
-                  exp.current ? 'Present' : 'Month Year'
+                {{ exp.company }} | <span class="text-body-1" style="color: grey">{{ exp.startMonth }} {{ exp.startYear }} - {{
+                  exp.current ? 'Present' : `${exp.endMonth} ${exp.endYear}`
                 }}</span>
               </p>
               <p class="text-body-1 ml-8">

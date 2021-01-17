@@ -42,15 +42,19 @@
                   class="mx-5"
                   color="grey darken-1"
                   size="32"
-              ></v-avatar>
+              >
+                <v-icon size="24" color="white">
+                  mdi-account-circle
+                </v-icon>
+              </v-avatar>
             </v-btn>
           </template>
           <v-card class="pa-3">
             <v-list-item-content class="justify-center">
               <div class="mx-auto text-center">
-                <h3 class="mx-5">Full Name</h3>
+                <h3 class="mx-5">{{ currentUser.name }}</h3>
                 <p class="caption mt-1">
-                  email-id
+                  {{ currentUser.email }}
                 </p>
                 <v-divider class="my-3"></v-divider>
                 <v-btn
@@ -79,7 +83,7 @@
             <v-col class="align-center text-center">
 
               <v-avatar color="grey">
-                <v-icon dark>
+                <v-icon large dark>
                   mdi-account-circle
                 </v-icon>
               </v-avatar>
