@@ -156,6 +156,10 @@
               :skills="currentUser.skills"
               @updateSkills="getCurrentUserDetails"
           ></skills>
+          <projects
+              :user-projects="currentUser.projects"
+              @updateSkills="getCurrentUserDetails"
+          ></projects>
         </v-col>
       </v-row>
     </v-container>
@@ -166,10 +170,12 @@
 <script>
 import firebase from "../utils/firebase";
 import skills from "../components/Skills"
+import Projects from "../components/Projects";
 
 export default {
   name: "Dashboard",
   components: {
+    Projects,
     skills
   },
   mounted() {
@@ -178,7 +184,8 @@ export default {
   data() {
     return {
       currentUser: {
-        skills: []
+        skills: [],
+        projects: []
       },
       displayComponent: 'Profile',
       links: [
