@@ -117,6 +117,8 @@
 </template>
 
 <script>
+import firebase from "../utils/firebase";
+
 export default {
   name: "Dashboard",
   data: () => ({
@@ -129,8 +131,13 @@ export default {
   }),
   methods: {
     logout: function () {
-      alert('Logout')
-      this.$router.push({name:'Login'})
+      firebase.auth.signOut()
+          .then(() => {
+            this.$router.push({name: 'Login'});
+          })
+          .catch(err => {
+            console.log(err);
+          })
     }
   }
 }

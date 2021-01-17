@@ -51,7 +51,7 @@
                 class="text-capitalize"
                 color="primary"
                 text
-                to="signup"
+                to="register"
             >
               Register
             </v-btn>
@@ -73,6 +73,8 @@
 </template>
 
 <script>
+import firebase from "../utils/firebase";
+
 export default {
   name: "Login",
 
@@ -94,7 +96,15 @@ export default {
 
   methods: {
     login: function () {
-      alert('Login');
+      firebase.auth.signInWithEmailAndPassword(this.form.email, this.form.pass)
+          .then((user) => {
+            console.log(user);
+            this.$router.push({name: 'Dashboard'});
+          })
+          .catch(err => {
+            console.log(err);
+            alert('Oops! ' + err.message);
+          })
     }
   }
 }
