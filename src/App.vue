@@ -21,3 +21,8 @@ export default {
   }),
 };
 </script>
+<style>
+ * {
+   font-family: 'Google Sans', sans-serif;
+ }
+</style>
