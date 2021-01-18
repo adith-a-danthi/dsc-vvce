@@ -95,7 +95,6 @@ export default {
           .then(function (querySnapshot) {
             querySnapshot.forEach(function (doc) {
               members.push(doc.data());
-              console.log(members, doc.data());
             })
           })
           .catch(err => {

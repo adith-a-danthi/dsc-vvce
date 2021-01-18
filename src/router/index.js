@@ -7,6 +7,7 @@ import Login from "../views/Login";
 import Dashboard from "../views/Dashboard";
 import Signup from "../views/Signup";
 import Members from "../views/Members";
+import Events from "../views/Events";
 
 Vue.use(VueRouter)
 
@@ -32,6 +33,11 @@ const routes = [
     path: '/members',
     name: 'Members',
     component: Members
+  },
+  {
+    path: '/events',
+    name: 'Events',
+    component: Events
   },
   {
     path: '/login',

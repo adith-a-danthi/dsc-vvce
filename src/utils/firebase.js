@@ -18,8 +18,10 @@ const auth = firebaseApp.auth();
 const db = firebaseApp.firestore();
 
 const usersCollection = db.collection('users');
+const eventsCollection = db.collection('events');
 
 export default {
     auth,
-    usersCollection
+    usersCollection,
+    eventsCollection
 }
