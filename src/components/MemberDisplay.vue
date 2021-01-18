@@ -3,15 +3,15 @@
     <v-row class="mb-5">
       <v-col cols="4" md="3">
         <v-avatar
-            color="#536DFE"
+            :color="memberDetails.profilePic? 'white' : '#536DFE'"
             size="5rem"
         >
-          <!--            <v-img-->
-          <!--                class="mx-auto"-->
-          <!--                alt="chapter.alt"-->
-          <!--                src="@/assets/mobile.svg"-->
-          <!--            ></v-img>-->
-          <v-icon size="4rem" color="white">
+          <v-img
+              v-if="memberDetails.profilePic"
+              :src="memberDetails.profilePic"
+              size="9rem"
+          ></v-img>
+          <v-icon size="4rem" color="white" v-else>
             mdi-account-circle
           </v-icon>
         </v-avatar>

@@ -42,7 +42,12 @@
                 color="#536DFE"
                 size="32"
             >
-              <v-icon size="24" color="white">
+              <v-img
+                  v-if="profilePic"
+                  :src="profilePic"
+                  size="9rem"
+              ></v-img>
+              <v-icon size="24" color="white" v-else>
                 mdi-account-circle
               </v-icon>
             </v-avatar>
@@ -96,6 +101,9 @@ import firebase from "../utils/firebase";
 
 export default {
   name: "Header",
+  mounted() {
+    this.getProfilePic();
+  },
   data: () => ({
     links: [
       'home',
@@ -103,7 +111,8 @@ export default {
       'chapters',
       'events',
       'members'
-    ]
+    ],
+    profilePic: false
   }),
   methods: {
     logout: function () {
@@ -116,6 +125,16 @@ export default {
             console.log(err);
           })
     },
+    getProfilePic: function () {
+      firebase.usersCollection.doc(firebase.auth.currentUser.uid).get()
+          .then(user => {
+            let currentUser = user.data();
+            this.profilePic = currentUser.profilePic;
+          })
+          .catch(err => {
+            console.log(err);
+          })
+    }
   }
 }
 </script>

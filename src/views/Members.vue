@@ -15,15 +15,15 @@
             rounded="lg"
         >
           <v-avatar
-              color="#536DFE"
+              :color="member.profilePic? 'white' : '#536DFE'"
               size="10rem"
           >
-            <!--            <v-img-->
-            <!--                class="mx-auto"-->
-            <!--                alt="chapter.alt"-->
-            <!--                src="@/assets/mobile.svg"-->
-            <!--            ></v-img>-->
-            <v-icon size="9rem" color="white">
+            <v-img
+                v-if="member.profilePic"
+                :src="member.profilePic"
+                size="9rem"
+            ></v-img>
+            <v-icon size="9rem" color="white" v-else>
               mdi-account-circle
             </v-icon>
           </v-avatar>
@@ -74,6 +74,7 @@ export default {
       memberList: [],
       showMemberModal: false,
       selectedMember: {
+        profilePic: '',
         name: '',
         email: '',
         skills: [],

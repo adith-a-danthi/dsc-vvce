@@ -41,10 +41,14 @@
             >
               <v-avatar
                   class="mx-5"
-                  color="#536DFE"
+                  :color="currentUser.profilePic? 'white' : '#536DFE'"
                   size="32"
               >
-                <v-icon size="24" color="white">
+                <v-img
+                    v-if="currentUser.profilePic"
+                    :src="currentUser.profilePic"
+                ></v-img>
+                <v-icon size="24" color="white" v-else>
                   mdi-account-circle
                 </v-icon>
               </v-avatar>
@@ -76,7 +80,7 @@
 
     <v-container>
       <v-row>
-        <v-col cols="4" md="2">
+        <v-col cols="12" md="3" lg="2">
           <v-sheet
               class="mb-2"
               rounded="lg"
@@ -85,12 +89,70 @@
 
               <v-avatar
                   size="8rem"
-                  color="#536DFE"
+                  :color="currentUser.profilePic? 'white' : '#536DFE'"
               >
-                <v-icon size="7rem" dark>
+                <v-img
+                    v-if="currentUser.profilePic"
+                    :src="currentUser.profilePic"
+                ></v-img>
+                <v-icon size="7rem" dark v-else>
                   mdi-account-circle
                 </v-icon>
               </v-avatar>
+              <br>
+              <v-dialog
+                  v-model="newProfilePicModal"
+                  width="30vw"
+              >
+                <template v-slot:activator="{on,attr}">
+                  <v-btn
+                      class="text-capitalize mt-2"
+                      text
+                      small
+                      color="#536DFE"
+                      v-on="on"
+                      v-bind="attr"
+                  >
+                    Update Picture
+                  </v-btn>
+                </template>
+
+                <v-card>
+                  <v-card-title>
+                    Update Profile Picture
+                  </v-card-title>
+                  <v-card-text>
+                    <v-file-input
+                        label="Profile Picture"
+                        v-model="newProfilePic"
+                        accept="image/*"
+                        color="#536DFE"
+                        show-size
+                        outlined
+                        dense
+                    ></v-file-input>
+                  </v-card-text>
+                  <v-card-actions class="justify-end">
+                    <v-btn
+                        text
+                        color="#536DFE"
+                        class="text-capitalize"
+                        @click="newProfilePicModal = false"
+                    >
+                      Cancel
+                    </v-btn>
+                    <v-btn
+                        color="#536DFE"
+                        elevation="0"
+                        class="text-capitalize"
+                        style="color: white"
+                        @click="updateProfilePic"
+                    >
+                      Save
+                    </v-btn>
+                  </v-card-actions>
+                </v-card>
+              </v-dialog>
 
               <h3 id="name" class="text-capitalize mt-2">{{ currentUser.name }}</h3>
               <p id="email" class="text-sm-subtitle-2 mb-0">{{ currentUser.email }}</p>
@@ -285,6 +347,7 @@ export default {
         website: '',
         bio: '',
         tagline: '',
+        profilePic: ''
       },
       editUser: {
         name: '',
@@ -294,6 +357,8 @@ export default {
         bio: '',
         tagline: '',
       },
+      newProfilePic: null,
+      newProfilePicModal: false,
       displayComponent: 'Profile',
       links: [
         'home',
@@ -325,6 +390,7 @@ export default {
           })
           .catch(err => {
             console.log(err)
+            alert('Error Getting User data');
           })
     },
     setEditUser: function () {
@@ -355,6 +421,39 @@ export default {
               console.log(err);
               alert('Error Updating Data');
             })
+      }
+    },
+    async updateProfilePic() {
+      if (this.newProfilePic) {
+        this.newProfilePicModal = false;
+        console.log(this.newProfilePic)
+        let uploadTask = firebase.storage.ref('users/' + firebase.auth.currentUser.uid + '.' + this.newProfilePic.name.split('.').pop()).put(this.newProfilePic);
+        await uploadTask.on(
+            'state_changed',
+            () => {
+            },
+            function (error) {
+              console.log(error);
+              alert('Error Updating Profile Picture');
+            },
+            function () {
+              uploadTask.snapshot.ref.getDownloadURL()
+                  .then((downloadURL) => {
+                    console.log('File available at', downloadURL);
+                    firebase.usersCollection.doc(firebase.auth.currentUser.uid).update({
+                      profilePic: downloadURL
+                    })
+                        .then(() => {
+                          console.log('Done');
+                        })
+                        .catch(err => {
+                          console.log(err);
+                          alert('Error Updating Profile Picture');
+                        });
+
+                  });
+            });
+        window.location.reload();
       }
     }
   }

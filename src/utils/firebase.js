@@ -1,6 +1,7 @@
 import firebase from "firebase";
 import "firebase/auth"
 import "firebase/firestore"
+import "firebase/storage"
 
 export const config = {
     apiKey: process.env.VUE_APP_API_KEY,
@@ -16,12 +17,15 @@ const firebaseApp = firebase.initializeApp(config);
 
 const auth = firebaseApp.auth();
 const db = firebaseApp.firestore();
+const storage = firebaseApp.storage();
 
 const usersCollection = db.collection('users');
 const eventsCollection = db.collection('events');
 
+
 export default {
     auth,
     usersCollection,
-    eventsCollection
+    eventsCollection,
+    storage
 }
