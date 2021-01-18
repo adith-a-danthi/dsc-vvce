@@ -23,22 +23,31 @@
               <v-card-title class="justify-space-between">
                 {{ project.title }}
                 <template>
+                  <v-btn
+                      icon
+                      small
+                      elevation="0"
+                      @click="setProject(project, idx)"
+                  >
+                    <v-icon small>mdi-pencil</v-icon>
+                  </v-btn>
                   <v-dialog
                       v-model="editProjectModal"
+                      persistent
                       width="30vw"
                   >
-                    <template v-slot:activator="{ on, attrs }">
-                      <v-btn
-                          icon
-                          small
-                          elevation="0"
-                          v-bind="attrs"
-                          v-on="on"
-                          @click="setProject(project, idx)"
-                      >
-                        <v-icon small>mdi-pencil</v-icon>
-                      </v-btn>
-                    </template>
+<!--                    <template v-slot:activator="{ on, attrs }">-->
+<!--                      <v-btn-->
+<!--                          icon-->
+<!--                          small-->
+<!--                          elevation="0"-->
+<!--                          v-bind="attrs"-->
+<!--                          v-on="on"-->
+<!--                          @click="setProject(project, idx)"-->
+<!--                      >-->
+<!--                        <v-icon small>mdi-pencil</v-icon>-->
+<!--                      </v-btn>-->
+<!--                    </template>-->
 
                     <v-card>
                       <v-card-title>
@@ -66,8 +75,8 @@
                         ></v-text-field>
                       </v-card-text>
                       <v-card-actions class="pa-4">
-                        <v-spacer></v-spacer>
                         <v-btn
+                            elevation="0"
                             color="red"
                             class="text-capitalize"
                             style="color: white"
@@ -75,7 +84,18 @@
                         >
                           Delete
                         </v-btn>
+                        <v-spacer></v-spacer>
                         <v-btn
+                            text
+                            color="red"
+                            class="text-capitalize"
+                            style="color: white"
+                            @click="editProjectModal = false"
+                        >
+                          Cancel
+                        </v-btn>
+                        <v-btn
+                            elevation="0"
                             color="green"
                             class="text-capitalize"
                             style="color: white"
@@ -212,27 +232,44 @@ export default {
           projects: this.userProjects
         })
             .then(() => {
+              this.newProject = {
+                title: '',
+                description: '',
+                link: ''
+              }
               this.$emit('updateUser');
             })
             .catch(err => {
               console.log(err);
               alert('Error Adding Project');
             })
+      } else {
+        alert('Title and Description Cannot be Empty');
       }
     },
     updateProject: function () {
-      this.userProjects[this.updateIndex] = this.editProject;
-      this.editProjectModal = false;
-      firebase.usersCollection.doc(firebase.auth.currentUser.uid).update({
-        projects: this.userProjects
-      })
-          .then(() => {
-            this.$emit('updateUser');
-          })
-          .catch(err => {
-            console.log(err);
-            alert('Error Updating Project');
-          })
+      if (this.editProject.title.length > 0 && this.editProject.description.length > 0) {
+        this.userProjects[this.updateIndex] = this.editProject;
+        this.editProjectModal = false;
+        firebase.usersCollection.doc(firebase.auth.currentUser.uid).update({
+          projects: this.userProjects
+        })
+            .then(() => {
+              this.editProject = {
+                title: '',
+                description: '',
+                link: ''
+              }
+              this.$emit('updateUser');
+            })
+            .catch(err => {
+              console.log(err);
+              alert('Error Updating Project');
+            })
+      } else {
+        alert('Title and Description Cannot be Empty');
+      }
+
     },
     deleteProject: function () {
       this.userProjects.splice(this.updateIndex, 1);
@@ -249,7 +286,10 @@ export default {
           })
     },
     setProject: function (project, index) {
-      this.editProject = project;
+      this.editProjectModal = true;
+      this.editProject.title = project.title;
+      this.editProject.description = project.description;
+      this.editProject.link = project.link;
       this.updateIndex = index;
     }
   }
