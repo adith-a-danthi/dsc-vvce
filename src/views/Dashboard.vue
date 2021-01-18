@@ -41,7 +41,7 @@
             >
               <v-avatar
                   class="mx-5"
-                  color="grey darken-1"
+                  color="#536DFE"
                   size="32"
               >
                 <v-icon size="24" color="white">
@@ -83,8 +83,11 @@
           >
             <v-col class="align-center text-center">
 
-              <v-avatar color="grey">
-                <v-icon large dark>
+              <v-avatar
+                  size="8rem"
+                  color="#536DFE"
+              >
+                <v-icon size="7rem" dark>
                   mdi-account-circle
                 </v-icon>
               </v-avatar>

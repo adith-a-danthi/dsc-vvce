@@ -39,7 +39,7 @@
           >
             <v-avatar
                 class="mx-5"
-                color="grey darken-1"
+                color="#536DFE"
                 size="32"
             >
               <v-icon size="24" color="white">
