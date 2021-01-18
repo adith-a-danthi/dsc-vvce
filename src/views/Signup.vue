@@ -6,6 +6,7 @@
     <v-col cols="6" md="3" class="mx-auto">
       <v-card
           class="align-center mx-auto pa-10"
+          min-width="200px"
       >
         <v-card-title>
           <v-img
@@ -128,6 +129,7 @@ export default {
                 admin: false,
               })
                   .then(() => {
+                    this.$store.commit('SET_LOGGED_IN', true);
                     this.$router.push({name: 'Dashboard'});
                   })
                   .catch(err => {

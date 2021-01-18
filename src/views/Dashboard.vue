@@ -23,6 +23,7 @@
             v-for="link in links"
             :key="link"
             text
+            :to="`/${link}`"
         >
           {{ link }}
         </v-btn>
@@ -292,10 +293,11 @@ export default {
       },
       displayComponent: 'Profile',
       links: [
-        'Home',
-        'About',
-        'Chapters',
-        'Events',
+        'home',
+        'about',
+        'chapters',
+        'events',
+        'members'
       ],
       editIntroModal: false,
       rules: [v => v.length > 0 || 'This field is required']
@@ -305,6 +307,7 @@ export default {
     logout: function () {
       firebase.auth.signOut()
           .then(() => {
+            this.$store.commit('SET_LOGGED_IN', false);
             this.$router.push({name: 'Login'});
           })
           .catch(err => {

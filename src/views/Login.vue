@@ -100,6 +100,7 @@ export default {
           .then((user) => {
             console.log(user);
             this.$router.push({name: 'Dashboard'});
+            this.$store.commit('SET_LOGGED_IN', true);
           })
           .catch(err => {
             console.log(err);

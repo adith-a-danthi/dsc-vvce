@@ -30,12 +30,18 @@ const routes = [
   {
     path: '/login',
     name: 'Login',
-    component: Login
+    component: Login,
+    meta: {
+      hideForAuth: true
+    }
   },
   {
     path: '/register',
     name: 'Signup',
-    component: Signup
+    component: Signup,
+    meta: {
+      hideForAuth: true
+    }
   },
   {
     path: '/dashboard',
@@ -54,10 +60,11 @@ const router = new VueRouter({
 router.beforeEach((to, from, next) => {
   const currentUser = firebase.auth.currentUser;
   const requiresAuth = to.matched.some(record => record.meta.requiresAuth);
+  const hideForAuth = to.matched.some(record => record.meta.hideForAuth);
 
   if (requiresAuth && !currentUser) {
     next('login');
-  } else if (!requiresAuth && currentUser) {
+  } else if(hideForAuth && currentUser) {
     next('dashboard');
   } else {
     next();
