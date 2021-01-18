@@ -121,8 +121,11 @@ export default {
     signup: function () {
       if (this.form.password === this.form.confirmPassword && this.form.password.length > 0) {
         firebase.auth.createUserWithEmailAndPassword(this.form.email, this.form.password)
-            .then((user) => {
-              firebase.usersCollection.doc(user.user.uid).set({
+            .then((response) => {
+              response.user.updateProfile({
+                displayName: this.form.name
+              });
+              firebase.usersCollection.doc(response.user.uid).set({
                 name: this.form.name,
                 email: this.form.email,
                 userId: firebase.auth.currentUser.uid,
