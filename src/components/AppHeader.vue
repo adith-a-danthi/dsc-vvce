@@ -8,6 +8,7 @@
           alt="Developer Student Club"
           class="shrink"
           contain
+          @click="$router.push('home')"
           src="@/assets/dsc.svg"
           height="50"
       />

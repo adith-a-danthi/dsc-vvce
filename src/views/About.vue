@@ -23,7 +23,7 @@
       <v-row  class="justify-center  ma-5 pa-5">
         <v-col cols="3" md="3" class="mx-2">
           <v-avatar
-              color="primary"
+              color="#536DFE"
               class="mb-2"
           >
             <v-icon color="white">mdi-account-multiple</v-icon>
@@ -33,7 +33,7 @@
         </v-col>
         <v-col cols="3" md="3" class="mx-2">
           <v-avatar
-              color="primary"
+              color="#536DFE"
               class="mb-2"
           >
             <v-icon color="white">mdi-school</v-icon>
@@ -43,7 +43,7 @@
         </v-col>
         <v-col cols="3" md="3" class="mx-2">
           <v-avatar
-              color="primary"
+              color="#536DFE"
               class="mb-2"
           >
             <v-icon color="white">mdi-briefcase</v-icon>
@@ -66,6 +66,6 @@ export default {
 </script>
 <style scoped>
   .accentText {
-    color: #1a73e8;
+    color: #536DFE;
   }
 </style>

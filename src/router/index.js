@@ -8,6 +8,7 @@ import Dashboard from "../views/Dashboard";
 import Signup from "../views/Signup";
 import Members from "../views/Members";
 import Events from "../views/Events";
+import Chapters from "../views/Chapters";
 
 Vue.use(VueRouter)
 
@@ -28,6 +29,11 @@ const routes = [
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
     component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
+  },
+  {
+    path: '/chapters',
+    name: 'Chapters',
+    component: Chapters
   },
   {
     path: '/members',
