@@ -423,12 +423,11 @@ export default {
             })
       }
     },
-    async updateProfilePic() {
+    updateProfilePic() {
       if (this.newProfilePic) {
         this.newProfilePicModal = false;
-        console.log(this.newProfilePic)
         let uploadTask = firebase.storage.ref('users/' + firebase.auth.currentUser.uid + '.' + this.newProfilePic.name.split('.').pop()).put(this.newProfilePic);
-        await uploadTask.on(
+        uploadTask.on(
             'state_changed',
             () => {
             },
@@ -439,12 +438,12 @@ export default {
             function () {
               uploadTask.snapshot.ref.getDownloadURL()
                   .then((downloadURL) => {
-                    console.log('File available at', downloadURL);
                     firebase.usersCollection.doc(firebase.auth.currentUser.uid).update({
                       profilePic: downloadURL
                     })
                         .then(() => {
                           console.log('Done');
+                          window.location.reload()
                         })
                         .catch(err => {
                           console.log(err);
@@ -453,7 +452,6 @@ export default {
 
                   });
             });
-        window.location.reload();
       }
     }
   }

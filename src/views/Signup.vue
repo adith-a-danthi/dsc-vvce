@@ -130,7 +130,16 @@ export default {
                 email: this.form.email,
                 userId: firebase.auth.currentUser.uid,
                 admin: false,
-                role: 'member'
+                role: 'member',
+                skills: [],
+                projects: [],
+                experience: [],
+                github: '',
+                linkedin: '',
+                website: '',
+                bio: '',
+                tagline: '',
+                profilePic: ''
               })
                   .then(() => {
                     this.$store.commit('SET_LOGGED_IN', true);
