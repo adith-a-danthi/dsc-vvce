@@ -44,6 +44,7 @@
           class="text-capitalize mx-auto"
           color="#536DFE"
           outlined
+          to='chapters'
       >
         Find Out More
       </v-btn>

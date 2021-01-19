@@ -1,6 +1,16 @@
 <template>
-  <v-container class="text-center">
+  <v-container class="text-center bg-lines mx-0 px-10" style="min-height: 100vh" fluid>
     <app-header></app-header>
+    <v-row class="justify-center">
+      <v-col cols="6">
+        <v-img
+            alt="Developer Activity"
+            src="@/assets/team.svg"
+            contain
+            height="18vh"
+        ></v-img>
+      </v-col>
+    </v-row>
     <p class="text-h4 text-md-h4 text-lg-h3 my-4 py-4">Meet the Team!</p>
     <v-row class="justify-center my-4 py-4">
       <v-col
@@ -113,5 +123,7 @@ export default {
 </script>
 
 <style scoped>
-
+  .bg-lines {
+    background-image: url('../assets/contour_line.svg')
+  }
 </style>
