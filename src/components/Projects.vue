@@ -31,82 +31,6 @@
                   >
                     <v-icon small>mdi-pencil</v-icon>
                   </v-btn>
-                  <v-dialog
-                      v-model="editProjectModal"
-                      persistent
-                      width="30vw"
-                  >
-<!--                    <template v-slot:activator="{ on, attrs }">-->
-<!--                      <v-btn-->
-<!--                          icon-->
-<!--                          small-->
-<!--                          elevation="0"-->
-<!--                          v-bind="attrs"-->
-<!--                          v-on="on"-->
-<!--                          @click="setProject(project, idx)"-->
-<!--                      >-->
-<!--                        <v-icon small>mdi-pencil</v-icon>-->
-<!--                      </v-btn>-->
-<!--                    </template>-->
-
-                    <v-card>
-                      <v-card-title>
-                        Edit Project
-                      </v-card-title>
-                      <v-card-text>
-                        <v-text-field
-                            v-model="editProject.title"
-                            label="Title"
-                            :rules="rules"
-                            outlined
-                            required
-                        ></v-text-field>
-                        <v-textarea
-                            v-model="editProject.description"
-                            outlined
-                            label="Description"
-                            required
-                            :rules="rules"
-                        ></v-textarea>
-                        <v-text-field
-                            v-model="editProject.link"
-                            label="Project Link"
-                            outlined
-                        ></v-text-field>
-                      </v-card-text>
-                      <v-card-actions class="pa-4">
-                        <v-btn
-                            elevation="0"
-                            color="red"
-                            class="text-capitalize"
-                            style="color: white"
-                            @click="deleteProject"
-                        >
-                          Delete
-                        </v-btn>
-                        <v-spacer></v-spacer>
-                        <v-btn
-                            text
-                            color="red"
-                            class="text-capitalize"
-                            style="color: white"
-                            @click="editProjectModal = false"
-                        >
-                          Cancel
-                        </v-btn>
-                        <v-btn
-                            elevation="0"
-                            color="green"
-                            class="text-capitalize"
-                            style="color: white"
-                            @click="updateProject"
-                        >
-                          Save
-                        </v-btn>
-                      </v-card-actions>
-                    </v-card>
-
-                  </v-dialog>
                 </template>
               </v-card-title>
               <v-card-text>
@@ -128,6 +52,70 @@
               </v-card-actions>
             </v-card>
           </v-col>
+          <v-dialog
+              id="editProjectDialog"
+              v-model="editProjectModal"
+              persistent
+              width="30vw"
+          >
+            <v-card>
+              <v-card-title>
+                Edit Project
+              </v-card-title>
+              <v-card-text>
+                <v-text-field
+                    v-model="editProject.title"
+                    label="Title"
+                    :rules="rules"
+                    outlined
+                    required
+                ></v-text-field>
+                <v-textarea
+                    v-model="editProject.description"
+                    outlined
+                    label="Description"
+                    required
+                    :rules="rules"
+                ></v-textarea>
+                <v-text-field
+                    v-model="editProject.link"
+                    label="Project Link"
+                    outlined
+                ></v-text-field>
+              </v-card-text>
+              <v-card-actions class="pa-4">
+                <v-btn
+                    text
+                    elevation="0"
+                    color="red accent-2"
+                    class="text-capitalize"
+                    style="color: white"
+                    @click="deleteProject"
+                >
+                  Delete
+                </v-btn>
+                <v-spacer></v-spacer>
+                <v-btn
+                    outlined
+                    color="#536DFE"
+                    class="text-capitalize"
+                    @click="editProjectModal = false"
+                >
+                  Cancel
+                </v-btn>
+                <v-btn
+                    elevation="0"
+                    color="#536DFE"
+                    class="text-capitalize"
+                    style="color: white"
+                    @click="updateProject"
+                >
+                  Save
+                </v-btn>
+              </v-card-actions>
+            </v-card>
+
+          </v-dialog>
         </v-row>
       </v-card-text>
       <v-card-actions class="justify-center">

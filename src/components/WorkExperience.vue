@@ -19,7 +19,9 @@
             <li class="text-h6">
               {{ exp.role }}
               <p class="text-body-1 ml-8">
-                {{ exp.company }} | <span class="text-body-1" style="color: grey">{{ exp.startMonth }} {{ exp.startYear }} - {{
+                {{ exp.company }} | <span class="text-body-1" style="color: grey">{{ exp.startMonth }} {{
+                  exp.startYear
+                }} - {{
                   exp.current ? 'Present' : `${exp.endMonth} ${exp.endYear}`
                 }}</span>
               </p>
@@ -30,117 +32,119 @@
             <v-divider></v-divider>
           </v-col>
           <v-col>
-            <template>
-              <v-dialog
-                  v-model="editWorkModal"
-                  width="30vw"
-              >
-                <template v-slot:activator="{ on, attrs }">
-                  <v-btn
-                      small
-                      icon
-                      elevation="0"
-                      v-bind="attrs"
-                      v-on="on"
-                      @click="setEmployment(exp, idx)"
-                  >
-                    <v-icon small>mdi-pencil</v-icon>
-                  </v-btn>
-                </template>
-
-                <v-card>
-                  <v-card-title>
-                    Edit Employment Details
-                  </v-card-title>
-                  <v-card-text>
-                    <v-text-field
-                        v-model="editEmployment.company"
-                        label="Company"
-                        :rules="rules"
-                        outlined
-                        required
-                    ></v-text-field>
-                    <v-text-field
-                        v-model="editEmployment.role"
-                        label="Role"
-                        outlined
-                        required
-                        :rules="rules"
-                    ></v-text-field>
-                    <v-textarea
-                        v-model="editEmployment.description"
-                        outlined
-                        label="Description"
-                    ></v-textarea>
-                    <v-checkbox
-                        v-model="editEmployment.current"
-                        label="Currently Working Here"
-                    ></v-checkbox>
+            <v-btn
+                small
+                icon
+                elevation="0"
+                @click="setEmployment(exp, idx)"
+            >
+              <v-icon small>mdi-pencil</v-icon>
+            </v-btn>
+          </v-col>
+          <v-dialog
+              v-model="editWorkModal"
+              width="30vw"
+          >
+            <v-card>
+              <v-card-title>
+                Edit Employment Details
+              </v-card-title>
+              <v-card-text>
+                <v-text-field
+                    v-model="editEmployment.company"
+                    label="Company"
+                    :rules="rules"
+                    outlined
+                    required
+                ></v-text-field>
+                <v-text-field
+                    v-model="editEmployment.role"
+                    label="Role"
+                    outlined
+                    required
+                    :rules="rules"
+                ></v-text-field>
+                <v-textarea
+                    v-model="editEmployment.description"
+                    outlined
+                    label="Description"
+                ></v-textarea>
+                <v-checkbox
+                    v-model="editEmployment.current"
+                    label="Currently Working Here"
+                ></v-checkbox>
+                <v-row>
+                  <v-col cols="6">
+                    <p class="text-body-1">Starting From</p>
                     <v-row>
-                      <v-col cols="6">
-                        <p class="text-body-1">Starting From</p>
-                        <v-row>
-                          <v-col>
-                            <v-select
-                                v-model="editEmployment.startMonth"
-                                label="Month"
-                                :items="months"
-                            ></v-select>
-                          </v-col>
-                          <v-col>
-                            <v-select
-                                v-model="editEmployment.startYear"
-                                label="Year"
-                                :items="years"
-                            ></v-select>
-                          </v-col>
-                        </v-row>
+                      <v-col>
+                        <v-select
+                            v-model="editEmployment.startMonth"
+                            label="Month"
+                            :items="months"
+                        ></v-select>
                       </v-col>
-                      <v-col cols="6" v-if="!editEmployment.current">
-                        <p class="text-body-1">Ending in</p>
-                        <v-row>
-                          <v-col>
-                            <v-select
-                                v-model="editEmployment.endMonth"
-                                label="Month"
-                                :items="months"
-                            ></v-select>
-                          </v-col>
-                          <v-col>
-                            <v-select
-                                v-model="editEmployment.endYear"
-                                label="Year"
-                                :items="years"
-                            ></v-select>
-                          </v-col>
-                        </v-row>
+                      <v-col>
+                        <v-select
+                            v-model="editEmployment.startYear"
+                            label="Year"
+                            :items="years"
+                        ></v-select>
                       </v-col>
                     </v-row>
-                  </v-card-text>
-                  <v-card-actions class="pa-4">
-                    <v-spacer></v-spacer>
-                    <v-btn
-                        color="red"
-                        class="text-capitalize"
-                        style="color: white"
-                        @click="deleteEmployment"
-                    >
-                      Delete
-                    </v-btn>
-                    <v-btn
-                        color="green"
-                        class="text-capitalize"
-                        style="color: white"
-                        @click="updateEmployment"
-                    >
-                      Save
-                    </v-btn>
-                  </v-card-actions>
-                </v-card>
+                  </v-col>
+                  <v-col cols="6" v-if="!editEmployment.current">
+                    <p class="text-body-1">Ending in</p>
+                    <v-row>
+                      <v-col>
+                        <v-select
+                            v-model="editEmployment.endMonth"
+                            label="Month"
+                            :items="months"
+                        ></v-select>
+                      </v-col>
+                      <v-col>
+                        <v-select
+                            v-model="editEmployment.endYear"
+                            label="Year"
+                            :items="years"
+                        ></v-select>
+                      </v-col>
+                    </v-row>
+                  </v-col>
+                </v-row>
+              </v-card-text>
+              <v-card-actions class="pa-4">
 
-              </v-dialog>
-            </template>
-          </v-col>
+                <v-btn
+                    text
+                    color="red accent-2"
+                    class="text-capitalize"
+                    @click="deleteEmployment"
+                >
+                  Delete
+                </v-btn>
+                <v-spacer></v-spacer>
+                <v-btn
+                    text
+                    color="#536DFE"
+                    class="text-capitalize"
+                    @click="editWorkModal = false"
+                >
+                  Cancel
+                </v-btn>
+                <v-btn
+                    color="#536DFE"
+                    class="text-capitalize"
+                    style="color: white"
+                    @click="updateEmployment"
+                >
+                  Save
+                </v-btn>
+              </v-card-actions>
+            </v-card>
+
+          </v-dialog>
         </v-row>
       </v-card-text>
 
@@ -349,6 +353,7 @@ export default {
           })
     },
     setEmployment: function (employment, index) {
+      this.editWorkModal = true;
       this.editEmployment = employment;
       this.updateIndex = index;
     }
