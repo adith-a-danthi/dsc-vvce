@@ -158,7 +158,7 @@
             <template v-slot:activator="{ on, attrs }">
               <v-btn
                   text
-                  color="primary"
+                  color="#536DFE"
                   class="text-capitalize"
                   elevation="0"
                   v-bind="attrs"
@@ -240,14 +240,16 @@
               <v-card-actions class="pa-4">
                 <v-spacer></v-spacer>
                 <v-btn
-                    outlined
+                    text
+                    color="#536DFE"
                     class="text-capitalize"
                     @click="addWorkModal = false"
                 >
                   Cancel
                 </v-btn>
                 <v-btn
-                    color="green"
+                    color="#536DFE"
+                    elevation="0"
                     class="text-capitalize"
                     style="color: white"
                     @click="addEmployment"

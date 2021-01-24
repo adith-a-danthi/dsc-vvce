@@ -5,7 +5,7 @@
         rounded="lg"
         elevation="0"
     >
-      <v-card-title class="justify-space-between">
+      <v-card-title class="justify-space-between mb-2">
         Skills
 
         <template>
@@ -16,11 +16,12 @@
             <template v-slot:activator="{ on, attrs }">
               <v-btn
                   icon
+                  small
                   elevation="0"
                   v-bind="attrs"
                   v-on="on"
               >
-                <v-icon>mdi-pencil</v-icon>
+                <v-icon small>mdi-pencil</v-icon>
               </v-btn>
             </template>
 
@@ -34,10 +35,13 @@
                       single-line
                       class="mr-5"
                       v-model="addSkill"
+                      v-on:keyup.enter="addNewSkill"
                   ></v-text-field>
                   <v-btn
-                      color="primary"
-                      class="mt-1 mb-0 pb-0 text-capitalize"
+                      elevation="0"
+                      style="color: white"
+                      color="#536DFE"
+                      class="mt-2 mb-0 pb-0 text-capitalize"
                       @click="addNewSkill"
                   >
                     Add
@@ -83,7 +87,16 @@
               <v-card-actions class="pa-4">
                 <v-spacer></v-spacer>
                 <v-btn
-                    color="green"
+                    class="text-capitalize"
+                    color="#536DFE"
+                    @click="edit = false"
+                    text
+                >
+                  Cancel
+                </v-btn>
+                <v-btn
+                    elevation="0"
+                    color="#536DFE"
                     class="text-uppercase"
                     style="color: white"
                     @click="saveSkills"

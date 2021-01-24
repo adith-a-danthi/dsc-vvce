@@ -210,7 +210,7 @@
                 <template v-slot:activator="{on,attr}">
                   <v-btn
                       class="text-capitalize"
-                      color="primary"
+                      color="#536DFE"
                       small
                       text
                       v-on="on"
@@ -271,7 +271,7 @@
                   <v-card-actions class="pa-4">
                     <v-spacer></v-spacer>
                     <v-btn
-                        color="green"
+                        color="#536DFE"
                         class="text-capitalize"
                         elevation="0"
                         @click="editIntroModal = false"
@@ -280,7 +280,7 @@
                       Cancel
                     </v-btn>
                     <v-btn
-                        color="green"
+                        color="#536DFE"
                         class="text-capitalize"
                         style="color: white"
                         elevation="0"

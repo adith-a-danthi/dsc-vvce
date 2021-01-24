@@ -96,7 +96,7 @@
                 </v-btn>
                 <v-spacer></v-spacer>
                 <v-btn
-                    outlined
+                    text
                     color="#536DFE"
                     class="text-capitalize"
                     @click="editProjectModal = false"
@@ -127,7 +127,7 @@
             <template v-slot:activator="{ on, attrs }">
               <v-btn
                   text
-                  color="primary"
+                  color="#536DFE"
                   class="text-capitalize"
                   elevation="0"
                   v-bind="attrs"
@@ -165,7 +165,16 @@
               <v-card-actions class="pa-4">
                 <v-spacer></v-spacer>
                 <v-btn
-                    color="green"
+                    text
+                    color="#536DFE"
+                    class="text-capitalize"
+                    @click="addProjectModal = false"
+                >
+                  Cancel
+                </v-btn>
+                <v-btn
+                    color="#536DFE"
+                    elevation="0"
                     class="text-capitalize"
                     style="color: white"
                     @click="addProject"
